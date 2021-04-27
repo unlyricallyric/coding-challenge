@@ -1,4 +1,4 @@
-package com.shopify.store.user;
+package com.shopify.store.controller;
 
 import com.shopify.store.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
