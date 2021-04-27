@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.shopify.store.security.ApplicationUserRole.*;
+
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -38,14 +40,21 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {
-        UserDetails annaSmithUser = User.builder()
-                .username("user")
+        UserDetails seller = User.builder()
+                .username("seller")
                 .password(passwordEncoder.encode("pass"))
-                .roles("STUDENT")
+                .roles(SELLER.name())
+                .build();
+
+        UserDetails buyer = User.builder()
+                .username("buyer")
+                .password(passwordEncoder.encode("pass"))
+                .roles(BUYER.name())
                 .build();
 
         return new InMemoryUserDetailsManager(
-                annaSmithUser
+                seller,
+                buyer
         );
     }
 }
