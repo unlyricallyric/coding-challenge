@@ -37,10 +37,10 @@
       <h1 class="gallery-title">Add Image</h1>
     </div>
 
-    <form class="row g-3" action="#" th:action="@{/image/create}" th:object="${image}" method="post" enctype="multipart/form-data">
+    <form class="row g-3" action="#" th:action="@{api/v1/image/upload}" th:object="${image}" method="post" enctype="multipart/form-data">
       <div class="col-12">
         <label class="form-label">Image Name</label>
-        <input type="text" class="form-control" th:field="*{original_name}">
+        <input type="text" class="form-control" id="original_image_name" th:field="*{getOriginalName}">
       </div>
       <div class="col-12">
         <label>Image</label>
