@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -28,9 +29,10 @@ public class ImageController {
     @PostMapping("upload")
     public ResponseEntity<String> uploadImage(
             @RequestParam("imageFile") MultipartFile imageFile,
-            @RequestParam("originalName") String image_name
+            @RequestParam("originalName") String image_name,
+            Principal principal
     ) {
-        return imageService.saveImage(imageFile, image_name);
+        return imageService.saveImage(imageFile, image_name, principal.getName());
     }
 
     @GetMapping("test")

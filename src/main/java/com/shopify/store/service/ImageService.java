@@ -10,12 +10,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service
 public class ImageService {
 
     private final ImageDao imageDao;
+    private final String storage = "store/src/main/resources/static/img/";
 
     @Autowired
     public ImageService(@Qualifier("imageDao") ImageDao imageDao) {
@@ -30,26 +33,42 @@ public class ImageService {
         return imageDao.getAllImages();
     }
 
-    public ResponseEntity<String> saveImage(MultipartFile imageFile, String image_name) {
+    public ResponseEntity<String> saveImage(MultipartFile imageFile, String image_name, String username) {
         try {
-            String originalFilename = imageFile.getOriginalFilename();
 
             Image img = new Image(
-                "first",
-                    "hashing",
-                    "username"
+                    image_name,
+                    getMD5HashFromByte(imageFile.getBytes()),
+                    username
             );
 
             imageDao.insertImage(img);
 
-            FileOutputStream fos = new FileOutputStream("store/src/main/resources/static/img/test.png");
+            FileOutputStream fos = new FileOutputStream(storage + image_name);
 
             fos.write(imageFile.getBytes());
-        } catch (IOException e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("issue getting bytes array");
         }
 
         return ResponseEntity.ok("image successfully uploaded!");
+    }
+
+    public String getMD5HashFromByte(byte[] image_bytes) throws NoSuchAlgorithmException, IOException {
+        //convert image bytes to hash bytes
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(image_bytes);
+        byte[] hash = md.digest();
+
+        //convert has bytes to hash string
+        String hexString = "";
+        for (int i=0; i < hash.length; i++) { //for loop ID:1
+            hexString +=
+                    Integer.toString( ( hash[i] & 0xff ) + 0x100, 16).substring( 1 );
+        }
+
+        return hexString;
+
     }
 }
