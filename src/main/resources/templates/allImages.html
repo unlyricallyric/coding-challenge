@@ -22,7 +22,7 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/#">Add Image</a>
+        <a class="nav-link" href="/addImage">Add Image</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/myImages">My Images</a>
@@ -35,36 +35,35 @@
 </nav>
 
 <div class="container">
-  <div class="row g-3">
+  <div class="row">
     <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <h1 class="gallery-title">Add Image</h1>
+      <h1 class="gallery-title">Image Store</h1>
     </div>
 
-    <form class="row g-3" action="#" th:action="@{api/v1/image/upload}" th:object="${image}" method="post" enctype="multipart/form-data">
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="image_privacy" id="publicImage" value="true" checked>
-          <label class="form-check-label" for="publicImage">
-            Public
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="image_privacy" id="privateImage" value="false">
-          <label class="form-check-label" for="privateImage">
-            Private
-          </label>
-        </div>
-      </div>
-      <div class="col-12">
-        <label>Image</label>
-        <input type="file" class="form-control-file" id="imageFile" name="imageFile">
-      </div>
-      <div class="col-12" style="top: 25px;">
-        <button type="submit" class="btn btn-primary">Add Image</button>
-      </div>
-    </form>
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="../static/img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
   </div>
 </div>
 
 </body>
 </html>
+
+
+<!--<form class="form-logout" method="get" action="/logout">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+</form>-->
+
+<!--<img src="../static/img/cat.jpg" th:width="100" th:src="@{img/cat.jpg}">-->

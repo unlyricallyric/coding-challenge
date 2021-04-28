@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository("imageDao")
 public class ImageDataAccessService implements ImageDao {
@@ -27,6 +28,15 @@ public class ImageDataAccessService implements ImageDao {
     @Override
     public List<Image> getAllImages() {
         return DB;
+    }
+
+    @Override
+    public List<Image> getMyImages(String user) {
+
+        return DB.stream().filter(
+                image -> image.getUsername().equals(user)
+        ).collect(Collectors.toList());
+
     }
 
 }

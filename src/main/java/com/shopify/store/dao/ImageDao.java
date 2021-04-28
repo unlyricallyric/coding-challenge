@@ -16,4 +16,6 @@ public interface ImageDao {
 
     List<Image> getAllImages();
 
+    List<Image> getMyImages(String user);
+
 }

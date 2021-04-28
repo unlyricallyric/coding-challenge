@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -73,5 +74,11 @@ public class ImageService {
 
         return hexString;
 
+    }
+
+    public List<Image> getMyImages(Principal principal) {
+        String user = principal.getName();
+
+        return imageDao.getMyImages(user);
     }
 }
