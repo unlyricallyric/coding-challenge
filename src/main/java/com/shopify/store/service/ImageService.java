@@ -19,7 +19,8 @@ import java.util.List;
 public class ImageService {
 
     private final ImageDao imageDao;
-    private final String storage = "store/src/main/resources/static/img/";
+    //private final String storage = "store/src/main/resources/static/img/";
+    private final String storage = "store/target/classes/static/img/";
 
     @Autowired
     public ImageService(@Qualifier("imageDao") ImageDao imageDao) {
