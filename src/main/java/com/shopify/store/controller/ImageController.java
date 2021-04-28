@@ -29,10 +29,11 @@ public class ImageController {
     @PostMapping("upload")
     public ResponseEntity<String> uploadImage(
             @RequestParam("imageFile") MultipartFile imageFile,
-            @RequestParam("originalName") String image_name,
+            @RequestParam("image_privacy") String image_privacy,
             Principal principal
     ) {
-        return imageService.saveImage(imageFile, image_name, principal.getName());
+        boolean isPublic = (image_privacy.equals("true"))?true:false;
+        return imageService.saveImage(imageFile, principal.getName(), isPublic);
     }
 
     @GetMapping("test")

@@ -33,18 +33,21 @@ public class ImageService {
         return imageDao.getAllImages();
     }
 
-    public ResponseEntity<String> saveImage(MultipartFile imageFile, String image_name, String username) {
+    public ResponseEntity<String> saveImage(MultipartFile imageFile, String username, boolean isPublic) {
         try {
 
+            String originalName = imageFile.getOriginalFilename();
+
             Image img = new Image(
-                    image_name,
+                    originalName,
                     getMD5HashFromByte(imageFile.getBytes()),
-                    username
+                    username,
+                    isPublic
             );
 
             imageDao.insertImage(img);
 
-            FileOutputStream fos = new FileOutputStream(storage + image_name);
+            FileOutputStream fos = new FileOutputStream(storage+originalName);
 
             fos.write(imageFile.getBytes());
         } catch (IOException | NoSuchAlgorithmException e) {
