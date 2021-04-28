@@ -40,7 +40,7 @@
     <form class="row g-3" action="#" th:action="@{api/v1/image/upload}" th:object="${image}" method="post" enctype="multipart/form-data">
       <div class="col-12">
         <label class="form-label">Image Name</label>
-        <input type="text" class="form-control" id="original_image_name" th:field="*{getOriginalName}">
+        <input type="text" class="form-control" id="originalName" th:field="*{originalName}">
       </div>
       <div class="col-12">
         <label>Image</label>

@@ -17,8 +17,16 @@ public class Image {
     private String username;
     private byte[] image_byte;
 
-    public Image(UUID id, String originalName) {
+    public Image(UUID id, String originalName, String hashing, String username) {
         this.id = id;
         this.originalName = originalName;
+        this.hashing = hashing;
+        this.username = username;
+    }
+
+    public Image(String originalName, String hashing, String username) {
+        this.originalName = originalName;
+        this.hashing = hashing;
+        this.username = username;
     }
 }

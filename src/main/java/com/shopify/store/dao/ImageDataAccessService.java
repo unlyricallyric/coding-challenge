@@ -14,7 +14,12 @@ public class ImageDataAccessService implements ImageDao {
 
     @Override
     public int insertImage(UUID id, Image image) {
-        DB.add(new Image(id, image.getOriginalName()));
+        DB.add(new Image(
+                id,
+                image.getOriginalName(),
+                image.getHashing(),
+                image.getUsername()
+        ));
         return 1;
     }
 

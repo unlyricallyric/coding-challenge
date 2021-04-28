@@ -34,17 +34,17 @@ public class ImageService {
         try {
             String originalFilename = imageFile.getOriginalFilename();
 
+            Image img = new Image(
+                "first",
+                    "hashing",
+                    "username"
+            );
+
+            imageDao.insertImage(img);
+
             FileOutputStream fos = new FileOutputStream("store/src/main/resources/static/img/test.png");
 
             fos.write(imageFile.getBytes());
-
-            Image img = new Image();
-            img.setOriginalName(image_name);
-            //Image img = new Image();
-
-            //img.setImage_byte(imageFile.getBytes());
-
-            //imageRepository.save(img);
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("issue getting bytes array");
