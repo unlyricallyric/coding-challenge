@@ -1,0 +1,30 @@
+.img-responsive
+{
+    width: 365px;
+    height: 365px;
+}
+
+.nav-item
+{
+    font-size: 15px;
+}
+
+.gallery-title
+{
+    font-size: 36px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 70px;
+}
+.gallery-title:after {
+    content: "";
+    position: absolute;
+    width: 7.5%;
+    left: 46.5%;
+    height: 45px;
+}
+
+.gallery_product
+{
+    margin-bottom: 30px;
+}

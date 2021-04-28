@@ -1,25 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>Please sign in</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="chrome-extension://idpbkophnbfijcnlffdmmppgnncgappc/css/content.css" rel="stylesheet" type="text/css">
-  <style>
-    body {
-      background-color: #3e3e3e;
-      color: white
-    }
-  </style>
+  <link rel="stylesheet" href="css/index.css">
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
-  <h1>Images Page</h1>
-  <form class="form-logout" method="get" action="/logout">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-  </form>
+
+<!--this is the correct path to be able to access-->
+<!--<img src="img/cat.jpg" th:width="100" th:src="@{img/cat.jpg}">-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#">Add Image</a>
+      </li>
+    </ul>
+    <form class="form-logout" method="get" action="/logout">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+    </form>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h1 class="gallery-title">Image Store</h1>
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="../static/img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+
+    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
+      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
+
+
+<!--<form class="form-logout" method="get" action="/logout">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+</form>-->
+
+<!--<img src="../static/img/cat.jpg" th:width="100" th:src="@{img/cat.jpg}">-->
