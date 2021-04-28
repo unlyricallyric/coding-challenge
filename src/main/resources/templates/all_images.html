@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!--this is the correct path to be able to access-->
+<!--<img src="img/cat.jpg" th:width="100" th:src="@{img/cat.jpg}">-->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -22,7 +25,10 @@
         <a class="nav-link" href="/addImage">Add Image</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/myImages">My Images</a>
+        <a class="nav-link" href="/all_images">All Images</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/my_images">My Images</a>
       </li>
     </ul>
     <form class="form-logout" method="get" action="/logout">
@@ -46,3 +52,10 @@
 
 </body>
 </html>
+
+
+<!--<form class="form-logout" method="get" action="/logout">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+</form>-->
+
+<!--<img src="../static/img/cat.jpg" th:width="100" th:src="@{img/cat.jpg}">-->

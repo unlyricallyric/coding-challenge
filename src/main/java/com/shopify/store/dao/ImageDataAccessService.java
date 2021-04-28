@@ -32,9 +32,18 @@ public class ImageDataAccessService implements ImageDao {
 
     @Override
     public List<Image> getMyImages(String user) {
-
+        //return all images that only belongs to the user
         return DB.stream().filter(
                 image -> image.getUsername().equals(user)
+        ).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<Image> getAllAvailableImages(String user) {
+        //return all images that are public or belongs to user
+        return DB.stream().filter(
+                image -> image.getUsername().equals(user) || image.isPublic()
         ).collect(Collectors.toList());
 
     }

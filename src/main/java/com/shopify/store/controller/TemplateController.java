@@ -27,12 +27,17 @@ public class TemplateController {
         return "login";
     }
 
-    @GetMapping("images")
-    public String getImagesView() {
-        return "allImages";
+    @GetMapping("all_images")
+    public String getImagesView(
+            Model model,
+            Principal principal
+    ) {
+        List<Image> allAvailableImages = imageService.getAllAvailableImages(principal);
+        model.addAttribute("images", allAvailableImages);
+        return "all_images";
     }
 
-    @GetMapping("myImages")
+    @GetMapping("my_images")
     public String getMyImagesView(
             Model model,
             Principal principal
@@ -41,7 +46,7 @@ public class TemplateController {
 
         model.addAttribute("images", myImages);
 
-        return "myImages";
+        return "my_images";
     }
 
     @GetMapping("addImage")

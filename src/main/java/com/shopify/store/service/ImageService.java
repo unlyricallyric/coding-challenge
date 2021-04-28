@@ -81,4 +81,10 @@ public class ImageService {
 
         return imageDao.getMyImages(user);
     }
+
+    public List<Image> getAllAvailableImages(Principal principal) {
+        String user = principal.getName();
+
+        return imageDao.getAllAvailableImages(user);
+    }
 }

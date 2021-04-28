@@ -36,8 +36,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*", "/static/**").permitAll()
-                //.antMatchers("/image/**").permitAll()
-                .antMatchers("/api/**").hasRole(SELLER.name())
+                .antMatchers("/api/**").hasAnyRole(SELLER.name(), BUYER.name())
                 .antMatchers(HttpMethod.DELETE, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
                 .antMatchers(HttpMethod.POST, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
@@ -47,7 +46,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/images", true)
+                .defaultSuccessUrl("/all_images", true)
                 .and()
                 .rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)).key("secureCookie")
                 .and()
@@ -55,7 +54,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/login");
     }
 
