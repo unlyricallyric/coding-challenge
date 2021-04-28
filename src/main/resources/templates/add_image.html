@@ -22,7 +22,7 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/addImage">Add Image</a>
+        <a class="nav-link" href="/#">Add Image</a>
       </li>
     </ul>
     <form class="form-logout" method="get" action="/logout">
@@ -32,35 +32,26 @@
 </nav>
 
 <div class="container">
-  <div class="row">
+  <div class="row g-3">
     <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <h1 class="gallery-title">Image Store</h1>
+      <h1 class="gallery-title">Add Image</h1>
     </div>
 
-    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
-      <img src="../static/img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
-    </div>
-
-    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
-      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
-    </div>
-
-    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
-      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
-    </div>
-
-    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6">
-      <img src="img/cat.jpg" th:src="@{img/cat.jpg}" th:width="365" th:height="365" class="img-responsive">
-    </div>
+    <form class="row g-3" action="#" th:action="@{/image/create}" th:object="${image}" method="post" enctype="multipart/form-data">
+      <div class="col-12">
+        <label class="form-label">Image Name</label>
+        <input type="text" class="form-control" th:field="*{original_name}">
+      </div>
+      <div class="col-12">
+        <label>Image</label>
+        <input type="file" class="form-control-file" id="imageFile" name="imageFile">
+      </div>
+      <div class="col-12" style="top: 25px;">
+        <button type="submit" class="btn btn-primary">Add Image</button>
+      </div>
+    </form>
   </div>
 </div>
 
 </body>
 </html>
-
-
-<!--<form class="form-logout" method="get" action="/logout">
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-</form>-->
-
-<!--<img src="../static/img/cat.jpg" th:width="100" th:src="@{img/cat.jpg}">-->

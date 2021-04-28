@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,9 +22,17 @@ public class UserController {
 
     @GetMapping("{userId}")
     public User getUser(@PathVariable("userId") Integer userId) {
+
         return USERS.stream()
                 .filter(user -> userId.equals(user.getUserId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("user " + userId + " does not exist"));
+    }
+
+    @GetMapping("getUser")
+    public String getCurrentUser(
+            Principal principal
+    ) {
+        return principal.getName();
     }
 }
