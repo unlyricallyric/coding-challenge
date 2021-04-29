@@ -19,7 +19,6 @@ import java.util.List;
 public class ImageService {
 
     private final ImageDao imageDao;
-    //private final String storage = "store/src/main/resources/static/img/";
     private final String storage = "store/target/classes/static/img/";
 
     @Autowired
@@ -39,17 +38,20 @@ public class ImageService {
         try {
 
             String originalName = imageFile.getOriginalFilename();
+            String md5HashFromByte = getMD5HashFromByte(imageFile.getBytes());
+            String hashName = getHashNameWithExtension(originalName, md5HashFromByte);
 
             Image img = new Image(
                     originalName,
-                    getMD5HashFromByte(imageFile.getBytes()),
+                    hashName,
                     username,
-                    isPublic
+                    isPublic,
+                    hashName
             );
 
             imageDao.insertImage(img);
 
-            FileOutputStream fos = new FileOutputStream(storage+originalName);
+            FileOutputStream fos = new FileOutputStream(storage+hashName);
 
             fos.write(imageFile.getBytes());
         } catch (IOException | NoSuchAlgorithmException e) {
@@ -87,5 +89,13 @@ public class ImageService {
         String user = principal.getName();
 
         return imageDao.getAllAvailableImages(user);
+    }
+
+    public String getHashNameWithExtension(String file_name, String hashName) {
+
+        String extension = file_name.split("\\.")[file_name.split("\\.").length-1];
+
+        return String.format("%s.%s", hashName, extension);
+
     }
 }

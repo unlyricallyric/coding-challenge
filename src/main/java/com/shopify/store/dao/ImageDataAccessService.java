@@ -20,7 +20,8 @@ public class ImageDataAccessService implements ImageDao {
                 image.getOriginalName(),
                 image.getHashing(),
                 image.getUsername(),
-                image.isPublic()
+                image.isPublic(),
+                image.getHashName()
         ));
         return 1;
     }
