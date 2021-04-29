@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/image")
@@ -34,6 +35,11 @@ public class ImageController {
     ) {
         boolean isPublic = (image_privacy.equals("true"))?true:false;
         return imageService.saveImage(imageFile, principal.getName(), isPublic);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public String deleteImageById(@PathVariable("id") UUID id) {
+        return id.toString();
     }
 
     @GetMapping("test")
