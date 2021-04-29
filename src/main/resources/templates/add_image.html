@@ -58,12 +58,13 @@
           </label>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12" id="file_upload">
         <label>Image</label>
         <input type="file" class="form-control-file" id="imageFile" name="imageFile">
       </div>
       <div class="col-12" style="top: 25px;">
         <button type="submit" class="btn btn-primary">Add Image</button>
+        <button type="button" onclick="addMoreImage()" class="btn btn-primary">Add another image</button>
       </div>
     </form>
   </div>
@@ -71,3 +72,16 @@
 
 </body>
 </html>
+
+<script>
+
+  function addMoreImage() {
+    var input = document.createElement("INPUT");
+    input.setAttribute("type", "file");
+    input.setAttribute("class", "form-control-file");
+    input.setAttribute("id", "imageFile");
+    input.setAttribute("name", "imageFile");
+    document.getElementById("file_upload").appendChild(input);
+  }
+
+</script>

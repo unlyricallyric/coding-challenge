@@ -34,28 +34,30 @@ public class ImageService {
         return imageDao.getAllImages();
     }
 
-    public ResponseEntity<String> saveImage(MultipartFile imageFile, String username, boolean isPublic) {
+    public ResponseEntity<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) {
         try {
-            if(imageFile.isEmpty()){
-                return ResponseEntity.badRequest().body("Please upload an image!");
+            for(int i=0; i<imageFile.length; i++) {
+
+                if (!imageFile[i].isEmpty()) {
+                    String originalName = imageFile[i].getOriginalFilename();
+                    String md5HashFromByte = getMD5HashFromByte(imageFile[i].getBytes());
+                    String hashName = getHashNameWithExtension(originalName, md5HashFromByte);
+
+                    Image img = new Image(
+                            originalName,
+                            hashName,
+                            username,
+                            isPublic,
+                            hashName
+                    );
+
+                    imageDao.insertImage(img);
+
+                    FileOutputStream fos = new FileOutputStream(storage + hashName);
+
+                    fos.write(imageFile[i].getBytes());
+                }
             }
-            String originalName = imageFile.getOriginalFilename();
-            String md5HashFromByte = getMD5HashFromByte(imageFile.getBytes());
-            String hashName = getHashNameWithExtension(originalName, md5HashFromByte);
-
-            Image img = new Image(
-                    originalName,
-                    hashName,
-                    username,
-                    isPublic,
-                    hashName
-            );
-
-            imageDao.insertImage(img);
-
-            FileOutputStream fos = new FileOutputStream(storage+hashName);
-
-            fos.write(imageFile.getBytes());
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("issue getting bytes array");

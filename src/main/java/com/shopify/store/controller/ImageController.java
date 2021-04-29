@@ -28,7 +28,7 @@ public class ImageController {
 
     @PostMapping("upload")
     public ResponseEntity<String> uploadImage(
-            @RequestParam("imageFile") MultipartFile imageFile,
+            @RequestParam("imageFile") MultipartFile[] imageFile,
             @RequestParam("image_privacy") String image_privacy,
             Principal principal
     ) {
