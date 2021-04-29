@@ -36,7 +36,9 @@ public class ImageService {
 
     public ResponseEntity<String> saveImage(MultipartFile imageFile, String username, boolean isPublic) {
         try {
-
+            if(imageFile.isEmpty()){
+                return ResponseEntity.badRequest().body("Please upload an image!");
+            }
             String originalName = imageFile.getOriginalFilename();
             String md5HashFromByte = getMD5HashFromByte(imageFile.getBytes());
             String hashName = getHashNameWithExtension(originalName, md5HashFromByte);
