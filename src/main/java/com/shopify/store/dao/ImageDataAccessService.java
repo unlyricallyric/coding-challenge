@@ -4,6 +4,7 @@ import com.shopify.store.model.Image;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
 public class ImageDataAccessService implements ImageDao {
 
     private static List<Image> DB = new ArrayList<>();
+    public final static List<String> allowed_ext = new ArrayList<>(
+            Arrays.asList("jpg", "png", "gif", "webp", "tiff", "psd", "raw", "jpeg", "svg")
+    );
 
     @Override
     public int insertImage(UUID id, Image image) {

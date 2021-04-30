@@ -1,10 +1,10 @@
 package com.shopify.store.service;
 
 import com.shopify.store.dao.ImageDao;
+import com.shopify.store.dao.ImageDataAccessService;
 import com.shopify.store.model.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,14 +35,25 @@ public class ImageService {
         return imageDao.getAllImages();
     }
 
-    public ResponseEntity<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) {
+    public List<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) {
+        //list which saves error/success messages if there is any
+        List<String> response = new ArrayList<>();
+
         try {
             for(int i=0; i<imageFile.length; i++) {
 
                 if (!imageFile[i].isEmpty()) {
                     String originalName = imageFile[i].getOriginalFilename();
                     String md5HashFromByte = getMD5HashFromByte(imageFile[i].getBytes());
-                    String hashName = getHashNameWithExtension(originalName, md5HashFromByte);
+                    String ext = originalName.split("\\.")[originalName.split("\\.").length-1];
+
+                    if(!ImageDataAccessService.allowed_ext.contains(ext)){
+                        response.add(String.format("The image %s has an extension of %s that is not allowed," +
+                                " please choose another image!", originalName, ext));
+                        continue;
+                    }
+
+                    String hashName = String.format("%s.%s", md5HashFromByte, ext);
 
                     Image img = new Image(
                             originalName,
@@ -56,14 +68,21 @@ public class ImageService {
                     FileOutputStream fos = new FileOutputStream(storage + hashName);
 
                     fos.write(imageFile[i].getBytes());
+                } else {
+                    response.add(String.format("The %sth image was not uploaded due to its empty, please re-upload it!", i+1));
                 }
             }
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("issue getting bytes array");
+            response.add("issue getting bytes array");
+            return response;
         }
 
-        return ResponseEntity.ok("image successfully uploaded!");
+        //return successful message if there is no error message
+        if(response.isEmpty()) {
+            response.add("image successfully uploaded!");
+        }
+        return response;
     }
 
     public String getMD5HashFromByte(byte[] image_bytes) throws NoSuchAlgorithmException, IOException {
