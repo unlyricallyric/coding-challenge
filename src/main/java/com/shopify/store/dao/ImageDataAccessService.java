@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository("imageDao")
 public class ImageDataAccessService implements ImageDao {
@@ -51,6 +52,15 @@ public class ImageDataAccessService implements ImageDao {
                 image -> image.getUsername().equals(user) || image.isPublic()
         ).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public void deleteImageByUsernameAndImageId(String username, UUID uuid) {
+        List<Image> imageStream = DB.stream().filter(
+                image -> image.getUsername().equals(username) && image.getId().equals(uuid)
+        ).collect(Collectors.toList());
+
+        DB.remove(imageStream.get(0));
     }
 
 }

@@ -12,11 +12,13 @@ public interface ImageDao {
     default int insertImage(Image image) {
         UUID id = UUID.randomUUID();
         return insertImage(id, image);
-    };
+    }
 
     List<Image> getAllImages();
 
     List<Image> getMyImages(String user);
 
     List<Image> getAllAvailableImages(String user);
+
+    void deleteImageByUsernameAndImageId(String username, UUID uuid);
 }

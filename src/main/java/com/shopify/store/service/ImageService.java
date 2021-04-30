@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ImageService {
@@ -93,9 +94,8 @@ public class ImageService {
 
         //convert has bytes to hash string
         String hexString = "";
-        for (int i=0; i < hash.length; i++) { //for loop ID:1
-            hexString +=
-                    Integer.toString( ( hash[i] & 0xff ) + 0x100, 16).substring( 1 );
+        for (int i=0; i < hash.length; i++) {
+            hexString += Integer.toString( ( hash[i] & 0xff ) + 0x100, 16).substring( 1 );
         }
 
         return hexString;
@@ -114,11 +114,14 @@ public class ImageService {
         return imageDao.getAllAvailableImages(user);
     }
 
-    public String getHashNameWithExtension(String file_name, String hashName) {
+    public String deleteImageByUsernameAndImageId(String username, UUID uuid) {
+        try {
+            imageDao.deleteImageByUsernameAndImageId(username, uuid);
+            return "Image successfully deleted!";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        String extension = file_name.split("\\.")[file_name.split("\\.").length-1];
-
-        return String.format("%s.%s", hashName, extension);
-
+        return "Having issue deleting image, please try again!";
     }
 }
