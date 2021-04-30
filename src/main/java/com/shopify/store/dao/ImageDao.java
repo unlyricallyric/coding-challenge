@@ -20,5 +20,9 @@ public interface ImageDao {
 
     List<Image> getAllAvailableImages(String user);
 
-    void deleteImageByUsernameAndImageId(String username, UUID uuid);
+    void deleteImageByUsernameAndImageId(String username, String hashname);
+
+    boolean isDuplicated(String hashname);
+
+    boolean isReference(String hashName);
 }

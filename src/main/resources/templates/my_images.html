@@ -46,7 +46,7 @@
 
     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6" th:each="img: ${images}">
       <img th:src="@{'img/' + ${img.getHashName()}}" th:width="365" th:height="365" class="img-responsive">
-      <button type="button" class="btn btn-danger" th:attr="onclick=|deleteImage('${img.getId()}')|" >Delete</button>
+      <button type="button" class="btn btn-danger" th:attr="onclick=|deleteImage('${img.getHashName()}')|" >Delete</button>
     </div>
 
   </div>
@@ -56,9 +56,9 @@
 </html>
 
 <script>
-  async function deleteImage(uuid) {
-    console.log(uuid);
-    const response = await fetch('api/v1/image/delete/'+uuid, {
+  async function deleteImage(hashname) {
+    console.log(hashname);
+    const response = await fetch('api/v1/image/delete/'+hashname, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

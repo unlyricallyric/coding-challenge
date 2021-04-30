@@ -10,12 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ImageService {
@@ -36,9 +37,10 @@ public class ImageService {
         return imageDao.getAllImages();
     }
 
-    public List<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) {
+    public List<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) throws IOException {
         //list which saves error/success messages if there is any
         List<String> response = new ArrayList<>();
+        FileOutputStream fos = null;
 
         try {
             for(int i=0; i<imageFile.length; i++) {
@@ -58,17 +60,23 @@ public class ImageService {
 
                     Image img = new Image(
                             originalName,
-                            hashName,
+                            md5HashFromByte,
                             username,
                             isPublic,
                             hashName
                     );
 
+                    /*
+                        Check if the same exact file already exist using md5 hashing if there is
+                        already a copy, will use reference instead of saving to host
+                     */
+                    if(!isDuplicated(img.getHashName())) {
+                        fos = new FileOutputStream(storage + hashName);
+                        fos.write(imageFile[i].getBytes());
+                    }
+
                     imageDao.insertImage(img);
 
-                    FileOutputStream fos = new FileOutputStream(storage + hashName);
-
-                    fos.write(imageFile[i].getBytes());
                 } else {
                     response.add(String.format("The %sth image was not uploaded due to its empty, please re-upload it!", i+1));
                 }
@@ -77,6 +85,8 @@ public class ImageService {
             e.printStackTrace();
             response.add("issue getting bytes array");
             return response;
+        } finally {
+            fos.close();
         }
 
         //return successful message if there is no error message
@@ -114,14 +124,33 @@ public class ImageService {
         return imageDao.getAllAvailableImages(user);
     }
 
-    public String deleteImageByUsernameAndImageId(String username, UUID uuid) {
+    public String deleteImageByUsernameAndImageId(String username, String hashName) {
         try {
-            imageDao.deleteImageByUsernameAndImageId(username, uuid);
+            /*
+                Check if the file to be deleted has more than one reference
+                delete file if no multiple references are found pointing
+                to the same file.
+             */
+
+            if(!isReference(hashName)){
+                Files.deleteIfExists(Paths.get(storage + hashName));
+            }
+
+            imageDao.deleteImageByUsernameAndImageId(username, hashName);
             return "Image successfully deleted!";
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return "Having issue deleting image, please try again!";
+    }
+
+    public boolean isDuplicated(String hashName) {
+        return imageDao.isDuplicated(hashName);
+    }
+
+    public boolean isReference(String hashName) {
+        return imageDao.isReference(hashName);
     }
 }

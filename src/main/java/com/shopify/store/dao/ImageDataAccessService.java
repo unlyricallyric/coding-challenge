@@ -55,12 +55,30 @@ public class ImageDataAccessService implements ImageDao {
     }
 
     @Override
-    public void deleteImageByUsernameAndImageId(String username, UUID uuid) {
+    public void deleteImageByUsernameAndImageId(String username, String hashName) {
         List<Image> imageStream = DB.stream().filter(
-                image -> image.getUsername().equals(username) && image.getId().equals(uuid)
+                image -> image.getUsername().equals(username) && image.getHashName().equals(hashName)
         ).collect(Collectors.toList());
 
         DB.remove(imageStream.get(0));
+    }
+
+    @Override
+    public boolean isDuplicated(String hashName) {
+        List<Image> imageStream = DB.stream().filter(
+                image -> image.getHashName().equals(hashName)
+        ).collect(Collectors.toList());
+
+        return !imageStream.isEmpty();
+    }
+
+    @Override
+    public boolean isReference(String hashName) {
+        List<Image> imageStream = DB.stream().filter(
+                image -> image.getHashName().equals(hashName)
+        ).collect(Collectors.toList());
+
+        return imageStream.size() > 1;
     }
 
 }
