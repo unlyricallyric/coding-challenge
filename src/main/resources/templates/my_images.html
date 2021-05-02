@@ -37,7 +37,7 @@
 <div class="container">
   <div class="row">
     <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <h1 class="gallery-title">Image Store</h1>
+      <h1 class="gallery-title">My Image Store</h1>
     </div>
 
     <div class="col-12">
@@ -45,6 +45,7 @@
     </div>
 
     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6" th:each="img: ${images}">
+      <h5 th:text="${img.getOriginalName}" th:style="'text-align: center'"></h5>
       <img th:src="@{'img/' + ${img.getHashName()}}" th:width="365" th:height="365" class="img-responsive">
       <button type="button" class="btn btn-danger" th:attr="onclick=|deleteImage('${img.getHashName()}')|" >Delete</button>
     </div>

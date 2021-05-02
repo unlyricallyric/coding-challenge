@@ -58,7 +58,7 @@ public class ImageService {
                     String hashName = String.format("%s.%s", md5HashFromByte, ext);
 
                     Image img = new Image(
-                            originalName,
+                            originalName.split("\\.")[0],
                             md5HashFromByte,
                             username,
                             isPublic,
