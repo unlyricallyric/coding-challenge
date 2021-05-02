@@ -35,12 +35,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*", "/img/**").permitAll()
+                .antMatchers("/css/*", "/js/*", "/img/**").permitAll()
                 .antMatchers("/api/**").hasAnyRole(SELLER.name(), BUYER.name())
-                /*.antMatchers(HttpMethod.DELETE, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
                 .antMatchers(HttpMethod.POST, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
-                .antMatchers(HttpMethod.GET, "/manage/api/**").hasAnyRole(SELLER.name(), BUYER.name())*/
+                .antMatchers(HttpMethod.GET, "/manage/api/**").hasAnyRole(SELLER.name(), BUYER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -60,14 +60,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         UserDetails seller = User.builder()
                 .username("seller")
-                .password(passwordEncoder.encode("test"))
+                .password(passwordEncoder.encode("password"))
                 //.roles(SELLER.name())
                 .authorities(SELLER.getGrantedAuthorities())
                 .build();
 
         UserDetails buyer = User.builder()
                 .username("buyer")
-                .password(passwordEncoder.encode("test"))
+                .password(passwordEncoder.encode("password"))
                 //.roles(BUYER.name())
                 .authorities(BUYER.getGrantedAuthorities())
                 .build();
