@@ -1,3 +1,8 @@
+body
+{
+    background-color: #e6f2ff;
+}
+
 .img-responsive
 {
     width: 365px;
@@ -27,4 +32,69 @@
 .gallery_product
 {
     margin-bottom: 30px;
+}
+
+#page_title
+{
+    margin-top: 20px;
+    font-size: 66pt;
+    font-family: 'Luckiest Guy';
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-shadow:   0px -6px 0 #212121,
+    0px -6px 0 #212121,
+    0px  6px 0 #212121,
+    0px  6px 0 #212121,
+    -6px  0px 0 #212121,
+    6px  0px 0 #212121,
+    -6px  0px 0 #212121,
+    6px  0px 0 #212121,
+    -6px -6px 0 #212121,
+    6px -6px 0 #212121,
+    -6px  6px 0 #212121,
+    6px  6px 0 #212121,
+    -6px  18px 0 #212121,
+    0px  18px 0 #212121,
+    6px  18px 0 #212121,
+    0 19px 1px rgba(0,0,0,.1),
+    0 0 6px rgba(0,0,0,.1),
+    0 6px 3px rgba(0,0,0,.3),
+    0 12px 6px rgba(0,0,0,.2),
+    0 18px 18px rgba(0,0,0,.25),
+    0 24px 24px rgba(0,0,0,.2),
+    0 36px 36px rgba(0,0,0,.15);
+}
+
+#image_name
+{
+    font-size: 36pt;
+    font-family: 'Luckiest Guy';
+    color: #a2a2a2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-shadow:   0px -3px 0 #212121,
+    0px -3px 0 #212121,
+    0px  3px 0 #212121,
+    0px  3px 0 #212121,
+    -3px  0px 0 #212121,
+    3px  0px 0 #212121,
+    -3px  0px 0 #212121,
+    3px  0px 0 #212121,
+    -3px -3px 0 #212121,
+    3px -3px 0 #212121,
+    -3px  3px 0 #212121,
+    3px  3px 0 #212121,
+    -3px  9px 0 #212121,
+    0px  9px 0 #212121,
+    3px  9px 0 #212121,
+    0 9.5px 0.5px rgba(0,0,0,.1),
+    0 0 3px rgba(0,0,0,.1),
+    0 3px 1.5px rgba(0,0,0,.3),
+    0 6px 1.5px rgba(0,0,0,.2),
+    0 9px 9px rgba(0,0,0,.25),
+    0 12px 12px rgba(0,0,0,.2),
+    0 18px 18px rgba(0,0,0,.15);
+    display: block;
+    margin: 22px;
 }
