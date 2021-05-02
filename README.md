@@ -17,11 +17,11 @@ Once the application is up and running, please open your favorite
 browser and enter "localhost:8080"
 
 ## Project functionality
-- There are 2 pre-defined users
-    ###### username: seller
-    ###### password: password
-    ###### username: buyer
-    ###### password: password
+- There are 2 pre-defined users <br><br>
+     ***username: seller*** <br>
+     ***password: password*** <br><br>
+     ***username: buyer*** <br>
+     ***password: password*** <br><br>
 
 - What's on the Navbar?
     1. "Add Image"<br/>
@@ -51,4 +51,10 @@ browser and enter "localhost:8080"
         - Checking if the file is referenced to multiple images, if multiple images are pointing to the
     same file, only the reference will be marked as removed. The file will be removed from server only
           if it is pointing to 1 image.
+          
+- Security
+    1. Check if empty file is uploaded
+    2. Check if file extension is allowed
+    3. Use UUID to replace file name to avoid file overwrite
+    4. Use MD5 to avoid upload same files having different names
        
