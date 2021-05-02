@@ -35,12 +35,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*", "/js/*", "/img/**").permitAll()
+                .antMatchers("/", "index", "/css/*", "/js/*", "/img/**").permitAll()
                 .antMatchers("/api/**").hasAnyRole(SELLER.name(), BUYER.name())
-                .antMatchers(HttpMethod.DELETE, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
+                /*.antMatchers(HttpMethod.DELETE, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
                 .antMatchers(HttpMethod.POST, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/manage/api/**").hasAuthority(SELLER_WRITE.getPermission())
-                .antMatchers(HttpMethod.GET, "/manage/api/**").hasAnyRole(SELLER.name(), BUYER.name())
+                .antMatchers(HttpMethod.GET, "/manage/api/**").hasAnyRole(SELLER.name(), BUYER.name())*/
                 .anyRequest()
                 .authenticated()
                 .and()

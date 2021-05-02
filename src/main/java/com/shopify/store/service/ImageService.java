@@ -37,10 +37,9 @@ public class ImageService {
         return imageDao.getAllImages();
     }
 
-    public List<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) throws IOException {
+    public List<String> saveImage(MultipartFile[] imageFile, String username, boolean isPublic) {
         //list which saves error/success messages if there is any
         List<String> response = new ArrayList<>();
-        FileOutputStream fos = null;
 
         try {
             for(int i=0; i<imageFile.length; i++) {
@@ -71,8 +70,9 @@ public class ImageService {
                         already a copy, will use reference instead of saving to host
                      */
                     if(!isDuplicated(img.getHashName())) {
-                        fos = new FileOutputStream(storage + hashName);
+                        FileOutputStream fos = new FileOutputStream(storage + hashName);
                         fos.write(imageFile[i].getBytes());
+                        fos.close();
                     }
 
                     imageDao.insertImage(img);
@@ -85,14 +85,13 @@ public class ImageService {
             e.printStackTrace();
             response.add("issue getting bytes array");
             return response;
-        } finally {
-            fos.close();
         }
 
         //return successful message if there is no error message
         if(response.isEmpty()) {
             response.add("image successfully uploaded!");
         }
+
         return response;
     }
 
