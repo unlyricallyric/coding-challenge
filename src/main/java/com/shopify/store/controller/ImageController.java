@@ -51,9 +51,4 @@ public class ImageController {
         redirectAttrs.addFlashAttribute("message", message);
         return "redirect:/my_images";
     }
-
-    @GetMapping("test")
-    public List<Image> getTest() {
-        return imageService.getAllImages();
-    }
 }

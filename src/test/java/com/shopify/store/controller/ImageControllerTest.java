@@ -107,34 +107,5 @@ public class ImageControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/my_images"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/my_images"));
     }
-
-    @Test
-    public void testGetTest() throws Exception {
-        when(this.imageService.getAllImages()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/image/test");
-        MockMvcBuilders.standaloneSetup(this.imageController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("imageList"))
-                .andExpect(MockMvcResultMatchers.view().name("api/v1/image/test"))
-                .andExpect(MockMvcResultMatchers.forwardedUrl("api/v1/image/test"));
-    }
-
-    @Test
-    public void testGetTest2() throws Exception {
-        when(this.imageService.getAllImages()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/api/v1/image/test");
-        getResult.contentType("TEST_STRING");
-        MockMvcBuilders.standaloneSetup(this.imageController)
-                .build()
-                .perform(getResult)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("imageList"))
-                .andExpect(MockMvcResultMatchers.view().name("api/v1/image/test"))
-                .andExpect(MockMvcResultMatchers.forwardedUrl("api/v1/image/test"));
-    }
 }
 
