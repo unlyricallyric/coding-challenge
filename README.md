@@ -1,4 +1,4 @@
-# Hi, thank you for taking time to look at this project.
+# Hi, thank you for taking time to look at this project :)
 
 ## Pre-requisites
 - java 11
