@@ -8,12 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository("imageDao")
 public class ImageDataAccessService implements ImageDao {
 
+    //Fake database
     private static List<Image> DB = new ArrayList<>();
+
     public final static List<String> allowed_ext = new ArrayList<>(
             Arrays.asList("jpg", "png", "gif", "webp", "tiff", "psd", "raw", "jpeg", "svg")
     );
@@ -63,6 +64,7 @@ public class ImageDataAccessService implements ImageDao {
         DB.remove(imageStream.get(0));
     }
 
+    //check if the same exact file exist already by comparing md5 hashing
     @Override
     public boolean isDuplicated(String hashName) {
         List<Image> imageStream = DB.stream().filter(
@@ -72,6 +74,7 @@ public class ImageDataAccessService implements ImageDao {
         return !imageStream.isEmpty();
     }
 
+    //check an existing file has multiple reference
     @Override
     public boolean isReference(String hashName) {
         List<Image> imageStream = DB.stream().filter(
